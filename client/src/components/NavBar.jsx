@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { styles } from "../../styles";
-import logo from "../../assets/logo.png";
+import { styles } from "../styles";
+import logo from "../assets/logo.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
 
