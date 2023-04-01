@@ -11,6 +11,7 @@ import contractInfo from '../assets/polygontest.json';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
+
 if (window.ethereum) {
     // MetaMask is available
 
@@ -28,6 +29,8 @@ if (window.ethereum) {
     // MetaMask is not available
     window.ethereum.enable();
 }
+
+const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const Image = styled('img')({
     width: "auto",
