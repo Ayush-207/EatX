@@ -4,7 +4,7 @@ import { styles } from "../styles";
 import logo from "../assets/logo.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
-
+import {AiOutlineShoppingCart} from "react-icons/ai" ;
 const NavBar = () => {
   const[active,setActive] = useState(""); 
   return (
@@ -12,7 +12,7 @@ const NavBar = () => {
         className={`${styles.paddingX} w-full h-[90px] flex items-center py-5 fixed top-0 z-20 bg-[#FFFFFF]`}
         >
             <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
-                <Link to="/" className="flex items-center gap-2" onClick={()=>{
+                <Link to="/" className="flex items-center" onClick={()=>{
                 setActive("") ;
                 window.scrollTo(0,0);
                 }}>
@@ -24,6 +24,7 @@ const NavBar = () => {
                         <h1 className="cursor-pointer">Switch to Selling</h1>
                     </div>
                 </Link>
+                <span className="text-[40px]"><AiOutlineShoppingCart/></span>
             </div>
             
         </nav>

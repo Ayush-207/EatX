@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "bg-primary",
   },
 }));
-const RestaurantRegisterForm = ({ opened, setOpened }) => {
+const RestaurantMenuForm = ({ opened, setOpened }) => {
   const theme = useMantineTheme();
 
   // const [opened, setOpened] = useState(true);
@@ -174,4 +174,4 @@ const RestaurantRegisterForm = ({ opened, setOpened }) => {
   );
 };
 
-export default RestaurantRegisterForm;
+export default RestaurantMenuForm;
