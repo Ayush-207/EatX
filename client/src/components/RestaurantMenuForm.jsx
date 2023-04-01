@@ -1,22 +1,95 @@
 import { Button, Loader, Pagination, Skeleton } from "@mantine/core";
 import { createStyles, Modal, useMantineTheme } from "@mantine/core";
 // import { Help } from "tabler-icons-react";
-
+import  ReactDOM  from "react-dom";
 // import Link from "next/link";
 
-import React from "react";
-
+import React, {useMemo} from 'react';
 // import { addRestaurant, connectWallet, isRestrauntExist } from "api";
 
 import { useEffect, useState } from "react";
 
-// import RestNavbar from "components/Resturant-Navbar";
 
+// import RestNavbar from "components/Resturant-Navbar";
+import { useDropzone } from "react-dropzone"
 const useStyles = createStyles((theme) => ({
   rowSelected: {
     backgroundColor: "bg-primary",
   },
 }));
+
+
+const baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#eeeeee',
+    borderStyle: 'dashed',
+    backgroundColor: '#fafafa',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+  };
+  
+  const focusedStyle = {
+    borderColor: '#2196f3'
+  };
+  
+  const acceptStyle = {
+    borderColor: '#00e676'
+  };
+  
+  const rejectStyle = {
+    borderColor: '#ff1744'
+  };
+  
+  function StyledDropzone(props) {
+    const {
+      getRootProps,
+      getInputProps,
+      isFocused,
+      isDragAccept,
+      isDragReject,
+      acceptedFiles
+    } = useDropzone({accept: {'image/*': []}});
+  
+    const style = useMemo(() => ({
+      ...baseStyle,
+      ...(isFocused ? focusedStyle : {}),
+      ...(isDragAccept ? acceptStyle : {}),
+      ...(isDragReject ? rejectStyle : {})
+    }), [
+      isFocused,
+      isDragAccept,
+      isDragReject
+    ]);
+  
+    const files = acceptedFiles.map(file => (
+        <li key={file.path}>
+            {file.path} - {file.size} bytes
+        </li>
+    ))
+    return (
+      <div className="container">
+        <div {...getRootProps({style})}>
+          <input {...getInputProps()} />
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        </div>
+        <aside>
+            <ul>{files}</ul>
+        </aside>
+      </div>
+    );
+  }
+  
+  <StyledDropzone />
+
+  ReactDOM.render(<StyledDropzone/> , document.getElementById("root")) ;
+
 const RestaurantMenuForm = ({ opened2, setOpened2 }) => {
   const theme = useMantineTheme();
 
@@ -124,10 +197,10 @@ const RestaurantMenuForm = ({ opened2, setOpened2 }) => {
             {/* image url */}
             <div className=" items-center mt-3">
               <label className="mb-2 basis-1/5 block text-sm font-medium text-gray-900 ">
-                Image Url
+                Image 
               </label>
 
-              <input
+              {/* <input
                 type="text"
                 className="form-control mb-2 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="exampleText0"
@@ -136,7 +209,8 @@ const RestaurantMenuForm = ({ opened2, setOpened2 }) => {
                 onChange={(e) =>
                   setRestData((old) => ({ ...old, imageUrl: e.target.value }))
                 }
-              />
+              /> */}
+              <StyledDropzone/>
             </div>
 
             <div className="flex items-center space-x-2 mt-5 justify-end">

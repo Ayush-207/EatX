@@ -80,7 +80,7 @@ export default function rootReducer(state = initialState, action) {
         }
 
         case addFoodItem : () => {
-            addFoodItem(action.payload.food);
+            addFood(action.payload.food);
             return state;
         }
     }
