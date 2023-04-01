@@ -325,6 +325,25 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "resAddresses",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
@@ -332,6 +351,16 @@
 		],
 		"name": "restaurants",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "rid",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "wallet_address",
+				"type": "address"
+			},
 			{
 				"internalType": "string",
 				"name": "name",
