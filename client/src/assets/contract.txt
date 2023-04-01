@@ -1,0 +1,115 @@
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+
+
+contract RestaurantWebsite is Ownable{
+
+    using Counters for Counters.Counter;
+    Counters.Counter private _rid;
+
+    struct Restaurant{
+        uint256 _id;
+        uint _curOrderId;
+        uint _curFoodId;
+        string _name;
+        string _description;
+        string _url;
+        string _location;
+        string _category;
+        FoodItem[] _menu;
+        Order[] _orders;
+    }
+
+    struct FoodItem{
+        uint _rid;
+        uint _id;
+        string _name;
+        string _description;
+        string _url;
+        uint _price;
+    }
+
+    struct Order{
+        uint _id;
+        uint _totalPrice;
+        bool _isPaid;
+        bool _isFulfilled;
+    }
+
+    address [] public resAddress;
+    mapping(address => Restaurant) public restaurants;
+    uint256 private _registrationFees;
+
+
+    constructor(uint256 registrationFees){
+        _registrationFees = registrationFees;
+    }
+
+    function getRestaurants() public view returns(Restaurant[] memory){
+        Restaurant [] memory allRes = new Restaurant[](resAddress.length);
+        for(uint i=0; i<resAddress.length; i++){
+            allRes[i] = restaurants[resAddress[i]];
+        }
+
+        return (allRes);
+    }
+
+
+    function addRestaurants(string memory name, string memory description, string memory category, string memory location) public payable {
+        
+        require(msg.value>=_registrationFees, "Not enough funds");
+        
+        restaurants[msg.sender]._name = name;
+        restaurants[msg.sender]._description = description;
+        restaurants[msg.sender]._category = category;
+        restaurants[msg.sender]._location = location;
+        restaurants[msg.sender]._curOrderId = 0;
+        restaurants[msg.sender]._curFoodId = 0;
+        restaurants[msg.sender]._id = _rid.current();
+        resAddress[_rid.current()] = msg.sender;
+
+        address payable ownerAddress = payable(owner());
+        ownerAddress.transfer(msg.value);
+    }
+
+    function addFoodItem(string memory name, string memory description, string memory url, uint price) public {
+        uint256 curId = restaurants[msg.sender]._curFoodId;
+        restaurants[msg.sender]._menu[curId]._name = name;
+        restaurants[msg.sender]._menu[curId]._description = description;
+        restaurants[msg.sender]._menu[curId]._url = url;
+        restaurants[msg.sender]._menu[curId]._price = price;
+        restaurants[msg.sender]._menu[curId]._rid = restaurants[msg.sender]._id;
+        restaurants[msg.sender]._menu[curId]._id = curId;
+        restaurants[msg.sender]._curFoodId++;
+    }
+
+    function placeOrder(FoodItem[] memory cart) public payable{
+        uint totalPrice = 0;
+        for(uint i=0; i<cart.length; i++){
+            totalPrice += cart[i]._price;
+        }
+        require(msg.value>=totalPrice, "Not enough funds");
+        uint rid = cart[0]._rid;
+        uint orderId = restaurants[resAddress[rid]]._curOrderId;
+        restaurants[resAddress[rid]]._orders[orderId]._id = orderId;
+        restaurants[resAddress[rid]]._orders[orderId]._totalPrice = totalPrice;
+        restaurants[resAddress[rid]]._orders[orderId]._isPaid = true;
+        restaurants[resAddress[rid]]._orders[orderId]._isFulfilled = false;  
+        restaurants[resAddress[rid]]._curOrderId++;
+        address payable resAdd = payable(resAddress[rid]);
+        resAdd.transfer(totalPrice);
+    }
+
+    function fulFillOrder(uint orderId) public {
+        require(restaurants[msg.sender]._orders[orderId]._isFulfilled==false, "Already fulfilled order");
+        restaurants[msg.sender]._orders[orderId]._isFulfilled = true;
+        for(uint i=orderId; i<restaurants[msg.sender]._curOrderId-1; i++){
+            restaurants[msg.sender]._orders[i] = restaurants[msg.sender]._orders[i+1];
+        }
+        restaurants[msg.sender]._curOrderId--;
+    }
+
+}
