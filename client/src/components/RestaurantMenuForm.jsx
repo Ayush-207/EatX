@@ -17,10 +17,10 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "bg-primary",
   },
 }));
-const RestaurantMenuForm = ({ opened, setOpened }) => {
+const RestaurantMenuForm = ({ opened2, setOpened2 }) => {
   const theme = useMantineTheme();
 
-  // const [opened, setOpened] = useState(true);
+//   const [opened2, setOpened2] = useState(true);
   const [restData, setRestData] = useState({
     name: "",
     ptaa: "",
@@ -41,18 +41,18 @@ const RestaurantMenuForm = ({ opened, setOpened }) => {
           withCloseButton={false}
           overlayOpacity={0.55}
           overlayBlur={3}
-          opened={opened}
-          onClose={() => setOpened(false)}
+          opened={opened2}
+          onClose={() => setOpened2(false)}
           size="lg">
           <div
             className="cards w-sm"
             style={{ background: "var(--pastel-color)" }}>
             <h3 className="text-xl text-gray-900 dark:text-black font-bold mb-5">
-              Add Restaurant
+              Add Menu
             </h3>
             <div className=" items-center">
               <label className="mb-2 basis-1/5 block text-sm font-medium text-gray-900 ">
-                Resturant Name
+                Food Item
               </label>
 
               <input
@@ -69,7 +69,7 @@ const RestaurantMenuForm = ({ opened, setOpened }) => {
 
             <div className=" items-center mt-3">
               <label className="mb-2 basis-1/5 block text-sm font-medium text-gray-900 ">
-                Food Category
+                Price
               </label>
 
               <input
@@ -104,7 +104,7 @@ const RestaurantMenuForm = ({ opened, setOpened }) => {
               />
             </div>
 
-            <div className=" items-center mt-3">
+            {/* <div className=" items-center mt-3">
               <label className="mb-2 basis-1/5 block text-sm font-medium text-gray-900 ">
                 Address
               </label>
@@ -119,7 +119,7 @@ const RestaurantMenuForm = ({ opened, setOpened }) => {
                   setRestData((old) => ({ ...old, ptaa: e.target.value }))
                 }
               />
-            </div>
+            </div> */}
 
             {/* image url */}
             <div className=" items-center mt-3">
@@ -161,7 +161,7 @@ const RestaurantMenuForm = ({ opened, setOpened }) => {
 
               <button
                 className="bg-mainRed text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
-                onClick={() => setOpened(false)}>
+                onClick={() => setOpened2(false)}>
                 Cancel
               </button>
             </div>
