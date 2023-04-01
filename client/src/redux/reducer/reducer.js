@@ -4,14 +4,14 @@ import { ethers } from 'ethers';
 import contractInfo from '../../assets/polygontest.json';
 import resabi from '../../assets/abi.json';
 
-const provider = new ethers.providers.Web3Provider(Window.ethereum);
+const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const initialState = {
-    restaurants : [],
-    cart : [],
-    foodItems : [],
-    myOrders : [],
-    isRegistered : false
+    restaurants: [],
+    cart: [],
+    foodItems: [],
+    myOrders: [],
+    isRegistered: false
 }
 
 
@@ -25,15 +25,49 @@ const initialState = {
 // async function placeFoodOrder(order){
 
 //     const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
-    
+
 // }
 
-// async function getRestaurants() {
+if (window.ethereum) {
+    // MetaMask is available
 
-//     const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
-//     const restaurants = await restaurantContract.getRestaurants();
-//     return restaurants;
-// }
+    window.ethereum.request({ method: 'eth_requestAccounts' })
+        .then((accounts) => {
+            // User has authorized the app
+            const account = accounts[0];
+            console.log(`Connected to MetaMask account: ${account}`);
+        })
+        .catch((error) => {
+            // User has denied the app or MetaMask is not available
+            console.log(`Failed to connect to MetaMask: ${error.message}`);
+        });
+} else {
+    // MetaMask is not available
+    window.ethereum.enable();
+}
+
+async function getRes() {
+
+    const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
+    const restaurants = await restaurantContract.getRestaurants();
+    console.log(restaurants);
+}
+
+async function addRes() {
+    try {
+      const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider.getSigner());
+      const functionInputs = ['pizza hut', 'description dakdjkjfhdksfkjkjhfs', 'continental', 'Delhi'];
+      const functionOptions = { value: ethers.utils.parseEther('0.000000000000000001') };
+      console.log('hi there');
+      const res = await restaurantContract.addRestaurants(...functionInputs, functionOptions);
+      console.log(res);
+      const receipt = await res.wait();
+      console.log(receipt.blockNumber);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+addRes();
 
 // async function getFoodItems(rid){
 
@@ -56,10 +90,10 @@ export default function rootReducer(state = initialState, action) {
             ]
         }
 
-        case fetchRestaurants : return {
-            ...state, 
-            restaurants : getRestaurants()
-        }
+        // case fetchRestaurants : return {
+        //     ...state, 
+        //     restaurants : getRestaurants()
+        // }
 
         // case addRestaurant: return {
         //     ...state,
