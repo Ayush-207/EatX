@@ -55,18 +55,18 @@ async function getRes() {
 
 async function addRes() {
     try {
-        const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider.getSigner());
-        const functionInputs = ['pizza hut', 'description dakdjkjfhdksfkjkjhfs', 'continental', 'Delhi'];
-        const functionOptions = { value: ethers.utils.parseEther('0.00000000001') };
-        console.log('hi there');
-        const res = await restaurantContract.addRestaurants(...functionInputs, functionOptions);
-        console.log(res);
-        const receipt = await res.wait();
-        console.log(receipt.blockNumber);
+      const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider.getSigner());
+      const functionInputs = ['pizza hut', 'description dakdjkjfhdksfkjkjhfs', 'continental', 'Delhi'];
+      const functionOptions = { value: ethers.utils.parseEther('0.000000000000000001'), gasLimit: 300000 };
+      console.log('hi there');
+      const res = await restaurantContract.addRestaurants(...functionInputs, functionOptions);
+      console.log(res);
+      const receipt = await res.wait();
+      console.log(receipt.blockNumber);
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
 addRes();
 
 // async function getFoodItems(rid){
