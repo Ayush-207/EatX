@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { styles } from "../../styles";
-import logo from "../../assets/logo.png";
+import { styles } from "../styles";
+import logo from "../assets/logo.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
 
@@ -19,7 +19,13 @@ const NavBar = () => {
                 <img src={logo} alt="logo" className="w-22 h-20 object-contain" ></img>
                 {/* <p className="text-black text-[18px] font-bold cursor-pointer">Manit Singhal</p> */}
                 </Link>
+                <Link to="/RestaurantRegister">
+                    <div  className={`${styles.heroSubText} text-[#000000]`}>
+                        <h1 className="cursor-pointer">Switch to Selling</h1>
+                    </div>
+                </Link>
             </div>
+            
         </nav>
   );
 };

@@ -4,6 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 import {Box, Typography, styled} from '@mui/material';
 import { styles } from "../styles";
 import { cards } from "../constants" ; 
+import { Link } from "react-router-dom"
 
 const Image = styled ('img') ({
     width: "auto",
@@ -40,23 +41,24 @@ const Card = ({
 }) => {
     return (
         <div className='bg-[#FFFFF0] p-5 rounded-2xl sm:w-[500px] w-full'>
-            <div className='relative w-full h-[300px]'>
-                <img
-                    src={image}
-                    alt='card_image'
-                    className='w-full h-full object-cover rounded-2xl'
-                />
-            </div>
+            <Link to="/Restaurant">
+                <div className='relative w-full h-[300px]'>
+                    <img
+                        src={image}
+                        alt='card_image'
+                        className='w-full h-full object-cover rounded-2xl'
+                    />
+                </div>
 
-            <div className='mt-5 flex flex-col items-start'>
-                <h3 className='text-black font-bold text-[40px]'>{name}</h3>
-                <p className="text-[20px]">{category}</p>
-                <p className='mt-2 text-secondary text-[15px] text-start'>{description}</p>
-                <p className="font-bold">{location}</p>
-                
-                
-            </div>
-
+                <div className='mt-5 flex flex-col items-start'>
+                    <h3 className='text-black font-bold text-[40px]'>{name}</h3>
+                    <p className="text-[20px]">{category}</p>
+                    <p className='mt-2 text-secondary text-[15px] text-start'>{description}</p>
+                    <p className="font-bold">{location}</p>
+                    
+                    
+                </div>
+            </Link>
         </div>
       
     )
