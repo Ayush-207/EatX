@@ -1,5 +1,8 @@
 import { Button, Loader, Pagination, Skeleton } from "@mantine/core";
 import { createStyles, Modal, useMantineTheme } from "@mantine/core";
+import { ethers } from 'ethers';
+import contractInfo from '../assets/polygontest.json';
+import resabi from '../assets/abi.json';
 // import { Help } from "tabler-icons-react";
 
 // import Link from "next/link";
@@ -12,6 +15,29 @@ import { useEffect, useState } from "react";
 
 // import RestNavbar from "components/Resturant-Navbar";
 
+
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+
+async function addRes(restData) {
+  try {
+    console.log(restData);
+    const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider.getSigner());
+    const ownerAddress = await restaurantContract.owner();
+    const ownerBalance = await provider.getBalance(ownerAddress);
+    console.log(ownerBalance.toString());
+    // const functionInputs = ['pizza hut', 'description dakdjkjfhdksfkjkjhfs', 'continental', 'Delhi'];
+    const functionOptions = { value: ethers.utils.parseEther('0.00000000001'), gasLimit: 3000000 };
+    console.log('hi there');
+    const res = await restaurantContract.addRestaurants(restData.name, restData.location, restData.category, restData.location, functionOptions);
+    console.log(res);
+    const receipt = await res.wait();
+    console.log(receipt.blockNumber);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 const useStyles = createStyles((theme) => ({
   rowSelected: {
     backgroundColor: "bg-primary",
@@ -23,24 +49,26 @@ const RestaurantRegisterForm = ({ opened, setOpened }) => {
   // const [opened, setOpened] = useState(true);
   const [restData, setRestData] = useState({
     name: "",
-    ptaa: "",
+    location: "",
     description: "",
-    imageUrl: "",
+    category: "",
+    url: "",
   });
+
 
   return (
     <>
       <div className="w-[80%] h-[80%] bg-gradient-to-r from-primary-500 to-blue-500">
         <Modal
           centered
-          overlayColor={
+          overlaycolor={
             theme.colorScheme === "dark"
               ? theme.colors.dark[9]
               : theme.colors.gray[2]
           }
           withCloseButton={false}
-          overlayOpacity={0.55}
-          overlayBlur={3}
+          overlayopacity={0.55}
+          overlayblur={3}
           opened={opened}
           onClose={() => setOpened(false)}
           size="lg">
@@ -116,7 +144,7 @@ const RestaurantRegisterForm = ({ opened, setOpened }) => {
                 placeholder="physical address"
                 value={restData.ptaa}
                 onChange={(e) =>
-                  setRestData((old) => ({ ...old, ptaa: e.target.value }))
+                  setRestData((old) => ({ ...old, location: e.target.value }))
                 }
               />
             </div>
@@ -134,7 +162,7 @@ const RestaurantRegisterForm = ({ opened, setOpened }) => {
                 placeholder="url"
                 value={restData.imageUrl}
                 onChange={(e) =>
-                  setRestData((old) => ({ ...old, imageUrl: e.target.value }))
+                  setRestData((old) => ({ ...old, url: e.target.value }))
                 }
               />
             </div>
@@ -142,20 +170,13 @@ const RestaurantRegisterForm = ({ opened, setOpened }) => {
             <div className="flex items-center space-x-2 mt-5 justify-end">
               {/* <Link href="/resturant/add-items" legacyBehavior> */}
               <a>
-                {/* <button
-                  onClick={() => {
-                    checkRest();
-                    // if (!exist) {
-                    //     const a = addRestaurant(restData.name, restData.description, restData.ptaa, restData.imageUrl);
-                    //     console.log(a.then((t) => console.log("tista", t)));
-
-                    // }
-                  }}
+                <button
+                  onClick={() => addRes(restData)}
                   className="bg-primary text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                  // style={{ background: loader ? "var(--secondary-color)" : "var(--primary-color)" }}
+                // style={{ background: loader ? "var(--secondary-color)" : "var(--primary-color)" }}
                 >
                   Add
-                </button> */}
+                </button>
               </a>
               {/* </Link> */}
 
@@ -165,10 +186,10 @@ const RestaurantRegisterForm = ({ opened, setOpened }) => {
                 Cancel
               </button>
             </div>
-            
+
           </div>
         </Modal>
-        
+
       </div>
     </>
   );

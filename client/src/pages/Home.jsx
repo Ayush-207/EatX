@@ -9,6 +9,25 @@ import { ethers } from "ethers";
 import resabi from '../assets/abi.json';
 import contractInfo from '../assets/polygontest.json';
 import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+
+if (window.ethereum) {
+    // MetaMask is available
+
+    window.ethereum.request({ method: 'eth_requestAccounts' })
+        .then((accounts) => {
+            // User has authorized the app
+            const account = accounts[0];
+            console.log(`Connected to MetaMask account: ${account}`);
+        })
+        .catch((error) => {
+            // User has denied the app or MetaMask is not available
+            console.log(`Failed to connect to MetaMask: ${error.message}`);
+        });
+} else {
+    // MetaMask is not available
+    window.ethereum.enable();
+}
 
 const Image = styled('img')({
     width: "auto",
@@ -69,6 +88,19 @@ const Card = ({
 }
 
 function Home() {
+
+    const dispatch = useDispatch();
+    const restaurants = ((state) => state.restaurants);
+    const getRestaurants = async () => {
+        const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
+        const restaurants = await restaurantContract.getRestaurants();
+        console.log(restaurants);
+        dispatch({ type: 'fetchRestaurants', payload: restaurants });
+    }
+
+    useEffect(() => {
+        getRestaurants();
+    })
 
     return (
         <div className="top-[120px] mt-[80px]">

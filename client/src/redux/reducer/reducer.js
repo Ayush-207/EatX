@@ -3,6 +3,7 @@ import { fetchFoodItems, fetchCart, fetchRestaurants, order, addCart, addFoodIte
 import { ethers } from 'ethers';
 import contractInfo from '../../assets/polygontest.json';
 import resabi from '../../assets/abi.json';
+import { useEffect } from 'react';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -28,46 +29,54 @@ const initialState = {
 
 // }
 
-if (window.ethereum) {
-    // MetaMask is available
+// if (window.ethereum) {
+//     // MetaMask is available
 
-    window.ethereum.request({ method: 'eth_requestAccounts' })
-        .then((accounts) => {
-            // User has authorized the app
-            const account = accounts[0];
-            console.log(`Connected to MetaMask account: ${account}`);
-        })
-        .catch((error) => {
-            // User has denied the app or MetaMask is not available
-            console.log(`Failed to connect to MetaMask: ${error.message}`);
-        });
-} else {
-    // MetaMask is not available
-    window.ethereum.enable();
-}
+//     window.ethereum.request({ method: 'eth_requestAccounts' })
+//         .then((accounts) => {
+//             // User has authorized the app
+//             const account = accounts[0];
+//             console.log(`Connected to MetaMask account: ${account}`);
+//         })
+//         .catch((error) => {
+//             // User has denied the app or MetaMask is not available
+//             console.log(`Failed to connect to MetaMask: ${error.message}`);
+//         });
+// } else {
+//     // MetaMask is not available
+//     window.ethereum.enable();
+// }
 
-async function getRes() {
+// async function getRes() {
 
-    const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
-    const restaurants = await restaurantContract.getRestaurants();
-    console.log(restaurants);
-}
+//     const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
+//     const restaurants = await restaurantContract.getRestaurants();
+//     console.log(restaurants);
+// }
 
-async function addRes() {
-    try {
-        const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider.getSigner());
-        const functionInputs = ['pizza hut', 'description dakdjkjfhdksfkjkjhfs', 'continental', 'Delhi'];
-        const functionOptions = { value: ethers.utils.parseEther('0.00000000001'), gasLimit: 300000 };
-        console.log('hi there');
-        const res = await restaurantContract.addRestaurants(...functionInputs, functionOptions);
-        console.log(res);
-        const receipt = await res.wait();
-        console.log(receipt.blockNumber);
-    } catch (error) {
-        console.error(error);
-    }
-}
-addRes();
+// async function addRes() {
+//     try {
+
+//         const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider.getSigner());
+//         const ownerAddress = await restaurantContract.owner();
+//         const ownerBalance = await provider.getBalance(ownerAddress);
+//         console.log(ownerBalance.toString());
+//         const functionInputs = ['pizza hut', 'description dakdjkjfhdksfkjkjhfs', 'continental', 'Delhi'];
+//         const functionOptions = { value: ethers.utils.parseEther('0.000000000000001'), gasLimit: 30000 };
+//         console.log('hi there');
+//         const res = await restaurantContract.addRestaurants(...functionInputs, functionOptions);
+//         console.log(res);
+//         const receipt = await res.wait();
+//         console.log(receipt.blockNumber);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
+// useEffect(() => {
+//     addRes();
+// })
+
 
 // async function getFoodItems(rid){
 
@@ -90,10 +99,10 @@ export default function rootReducer(state = initialState, action) {
             ]
         }
 
-        // case fetchRestaurants : return {
-        //     ...state, 
-        //     restaurants : getRestaurants()
-        // }
+        case fetchRestaurants: return {
+            ...state,
+            restaurants: action.payload
+        }
 
         // case addRestaurant: return {
         //     ...state,
