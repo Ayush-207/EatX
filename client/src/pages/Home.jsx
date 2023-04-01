@@ -93,7 +93,7 @@ const Card = ({
 function Home() {
 
     const dispatch = useDispatch();
-    const restaurants = ((state) => state.restaurants);
+    const restaurants = useSelector((state) => state.restaurants);
     const getRestaurants = async () => {
         const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
         const restaurants = await restaurantContract.getRestaurants();
