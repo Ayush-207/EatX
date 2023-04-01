@@ -5,6 +5,7 @@ import { Box, Typography, styled, Icon } from "@mui/material";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import { styles } from "../styles";
 
+
 const Text = styled(Typography)`
   font-size: 14px;
   margin-top: 5px;

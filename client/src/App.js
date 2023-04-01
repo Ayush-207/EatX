@@ -8,8 +8,11 @@ import Cart from './pages/Cart'
 import RestaurantRegister from './pages/RestaurantRegister';
 import RestaurantRegisterForm from './components/RestaurantRegisterForm';
 
+import {Provider} from 'react-redux';
+import {store} from './redux/store/store.js';
 
 function App() {
+  console.log('dsdsdsss');
   return (
     <div className="App">
       <Router>
@@ -25,7 +28,6 @@ function App() {
       </Routes>
       </Router>
     </div>
-    
   );
 }
 

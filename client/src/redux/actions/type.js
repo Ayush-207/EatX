@@ -1,7 +1,7 @@
-const fetchRestaurants = 'fetchRestaurants';
-const fetchCart = 'fetchCart';
-const fetchFoodItems = 'fetchFoodItems';
-const order = 'order';
-const addRestaurant = 'addRestaurant';
-const addFoodItem = 'addFoodItem';
-const addCart = 'addCart';
+export const fetchRestaurants = 'fetchRestaurants';
+export const fetchCart = 'fetchCart';
+export const fetchFoodItems = 'fetchFoodItems';
+export const order = 'order';
+export const addRestaurant = 'addRestaurant';
+export const addFoodItem = 'addFoodItem';
+export const addCart = 'addCart';
