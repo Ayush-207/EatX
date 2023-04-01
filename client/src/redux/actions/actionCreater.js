@@ -22,7 +22,7 @@ export default function order(){
 
 export default function addRestaurant(){
     return {
-        type : 'addRestuarant'
+        type : 'addRestaurant'
     }
 }
 
