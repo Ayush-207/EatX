@@ -24,7 +24,9 @@ const NavBar = () => {
                         <h1 className="cursor-pointer">Switch to Selling</h1>
                     </div>
                 </Link>
-                <span className="text-[40px]"><AiOutlineShoppingCart/></span>
+                <Link to="/Cart">
+                    <span className="text-[40px]"><AiOutlineShoppingCart/></span>
+                </Link>
             </div>
             
         </nav>

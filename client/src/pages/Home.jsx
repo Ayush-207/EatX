@@ -55,8 +55,6 @@ const Card = ({
                     <p className="text-[20px]">{category}</p>
                     <p className='mt-2 text-secondary text-[15px] text-start'>{description}</p>
                     <p className="font-bold">{location}</p>
-                    
-                    
                 </div>
             </Link>
         </div>

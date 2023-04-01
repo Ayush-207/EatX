@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/NavBar';
 import Home from "./pages/Home";
-import Restaurant from './pages/Restaurant';
-
+import Restaurant from './pages/restaurant';
 import Cart from './pages/Cart'
 
 import RestaurantRegister from './pages/RestaurantRegister';
