@@ -1,13 +1,27 @@
 
+import { create } from '@mui/material/styles/createTransitions';
 import { fetchFoodItems, fetchCart, fetchRestaurants, order, addCart, addFoodItem, addRestaurant } from '../actions/type';
+// import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     restaurants: [],
     cart: [],
     foodItems: [],
     myOrders: [],
+    isRestaurant: false,
+    rid: -1,
     isRegistered: false
 }
+
+// export const authSlice = createSlice({
+//     name: 'auth',
+//     initialState,
+//     reducers: {
+//         fetchRestaurants: (state, action) => {
+//             state.restaurants = action.payload.restaurants;
+//         }
+//     }
+// })
 
 
 // async function addFood(food){
