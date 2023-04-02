@@ -64,7 +64,8 @@ const dishes = [
     },
   ];
 
-const Restaurant = () => {
+const Restaurant = (props) => {
+    console.log(props);
   return (
     <>
       <div className="mt-20">
