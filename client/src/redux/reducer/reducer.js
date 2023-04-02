@@ -1,11 +1,5 @@
 
 import { fetchFoodItems, fetchCart, fetchRestaurants, order, addCart, addFoodItem, addRestaurant } from '../actions/type';
-import { ethers } from 'ethers';
-import contractInfo from '../../assets/polygontest.json';
-import resabi from '../../assets/abi.json';
-import { useEffect } from 'react';
-
-const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const initialState = {
     restaurants: [],
@@ -112,12 +106,6 @@ export default function rootReducer(state = initialState, action) {
         //     ]
         // }  
 
-<<<<<<< HEAD
-        case addFoodItem : () => {
-            addFood(action.payload.food);
-            return state;
-        }
-=======
         // case fetchFoodItems : return{
         //     ...state,
         //     foodItems : getFoodItems(action.payload.rid)
@@ -138,6 +126,5 @@ export default function rootReducer(state = initialState, action) {
         //     addFoodItem(action.payload.food);
         //     return state;
         // }
->>>>>>> refs/remotes/origin/master
     }
 }
