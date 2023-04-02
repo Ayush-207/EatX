@@ -14,7 +14,7 @@ import resabi from '../assets/abi.json'
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-async function addRes(restData) {
+async function addFood(restData) {
   try {
     console.log(restData);
     const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider.getSigner());
@@ -32,7 +32,7 @@ async function addRes(restData) {
 }
 
 // import RestNavbar from "components/Resturant-Navbar";
-import { useDropzone } from "react-dropzone"
+// import { useDropzone } from "react-dropzone"
 const useStyles = createStyles((theme) => ({
   rowSelected: {
     backgroundColor: "bg-primary",
@@ -68,48 +68,48 @@ const rejectStyle = {
   borderColor: '#ff1744'
 };
 
-function StyledDropzone(props) {
-  const {
-    getRootProps,
-    getInputProps,
-    isFocused,
-    isDragAccept,
-    isDragReject,
-    acceptedFiles
-  } = useDropzone({ accept: { 'image/*': [] } });
+// function StyledDropzone(props) {
+//   const {
+//     getRootProps,
+//     getInputProps,
+//     isFocused,
+//     isDragAccept,
+//     isDragReject,
+//     acceptedFiles
+//   } = useDropzone({ accept: { 'image/*': [] } });
 
-  const style = useMemo(() => ({
-    ...baseStyle,
-    ...(isFocused ? focusedStyle : {}),
-    ...(isDragAccept ? acceptStyle : {}),
-    ...(isDragReject ? rejectStyle : {})
-  }), [
-    isFocused,
-    isDragAccept,
-    isDragReject
-  ]);
+//   const style = useMemo(() => ({
+//     ...baseStyle,
+//     ...(isFocused ? focusedStyle : {}),
+//     ...(isDragAccept ? acceptStyle : {}),
+//     ...(isDragReject ? rejectStyle : {})
+//   }), [
+//     isFocused,
+//     isDragAccept,
+//     isDragReject
+//   ]);
 
-  const files = acceptedFiles.map(file => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ))
-  return (
-    <div className="container">
-      <div {...getRootProps({ style })}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-      <aside>
-        <ul>{files}</ul>
-      </aside>
-    </div>
-  );
-}
+//   const files = acceptedFiles.map(file => (
+//     <li key={file.path}>
+//       {file.path} - {file.size} bytes
+//     </li>
+//   ))
+//   return (
+//     <div className="container">
+//       <div {...getRootProps({ style })}>
+//         <input {...getInputProps()} />
+//         <p>Drag 'n' drop some files here, or click to select files</p>
+//       </div>
+//       <aside>
+//         <ul>{files}</ul>
+//       </aside>
+//     </div>
+//   );
+// }
 
-<StyledDropzone />
+{/* <StyledDropzone /> */}
 
-ReactDOM.render(<StyledDropzone />, document.getElementById("root"));
+// ReactDOM.render(<StyledDropzone />, document.getElementById("root"));
 
 const RestaurantMenuForm = ({ opened2, setOpened2 }) => {
   const theme = useMantineTheme();
@@ -238,7 +238,7 @@ const RestaurantMenuForm = ({ opened2, setOpened2 }) => {
               {/* <Link href="/resturant/add-items" legacyBehavior> */}
               <a>
                 <button
-                  onClick={() => getFood(restData)}
+                  onClick={() => addFood(restData)}
                   className="bg-primary text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 // style={{ background: loader ? "var(--secondary-color)" : "var(--primary-color)" }}
                 >

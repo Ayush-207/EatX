@@ -4,6 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 import { Box, Typography, styled, Icon } from "@mui/material";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import { styles } from "../styles";
+import { useSelector } from "react-redux";
 
 
 const Text = styled(Typography)`
@@ -64,10 +65,10 @@ const dishes = [
   },
 ];
 
-const Restaurant = (props) => {
+const Restaurant = () => {
 
-  const foodItems = useSelector((state) => state ? state.restaurants[props.rid]._menu : '');
-
+  const foodItems = useSelector((state) => state ? state.restaurants[state.rid]._menu : '');
+  console.log(foodItems);
   return (
     <>
       <div className="mt-20">
