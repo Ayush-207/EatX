@@ -104,10 +104,13 @@ function Home() {
 
     const dispatch = useDispatch();
     const restaurants = useSelector((state) => !state ? '' : state.restaurants);
+<<<<<<< HEAD
     const temp=[];
     for(let i =0; i<restaurants.length; i++){
         temp.push(restaurants[i]);
     }
+=======
+>>>>>>> 13726eb26c2859109a77c1a89106ec9d0abe2b35
     const getRestaurants = async () => {
         const restaurantContract = new ethers.Contract(contractInfo.address, resabi, provider);
         const restaurants = await restaurantContract.getRestaurants();

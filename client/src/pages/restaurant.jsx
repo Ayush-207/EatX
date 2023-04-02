@@ -41,31 +41,33 @@ const responsive = {
 };
 
 const dishes = [
-    {
-      name: "Dal makhani",
-      price: "Rs 20",
-      QTY: 20,
-      Action: "+",
-      desc: "Dummy text to describe the food item! Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-    },
-    {
-      name: "Paneer Butter Masala",
-      price: "Rs 50",
-      QTY: 10,
-      Action: "+",
-      desc: "Dummy text to describe the food item! Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-    },
-    {
-      name: "Murgh makhani",
-      price: "Rs 80",
-      QTY: 30,
-      Action: "+",
-      desc: "Dummy text to describe the food item! Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-    },
-  ];
+  {
+    name: "Dal makhani",
+    price: "Rs 20",
+    QTY: 20,
+    Action: "+",
+    desc: "Dummy text to describe the food item! Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
+  },
+  {
+    name: "Paneer Butter Masala",
+    price: "Rs 50",
+    QTY: 10,
+    Action: "+",
+    desc: "Dummy text to describe the food item! Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
+  },
+  {
+    name: "Murgh makhani",
+    price: "Rs 80",
+    QTY: 30,
+    Action: "+",
+    desc: "Dummy text to describe the food item! Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
+  },
+];
 
 const Restaurant = (props) => {
-    console.log(props);
+
+  const foodItems = useSelector((state) => state ? state.restaurants[props.rid]._menu : '');
+
   return (
     <>
       <div className="mt-20">
